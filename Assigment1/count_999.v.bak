@@ -1,0 +1,32 @@
+// Quartus II Verilog Template
+
+module count_999
+(
+	input clk, ent, enc, up_down, reset, load, // enc is synchronous carry-out, ent is last digital enc,
+	input [3:0] data_0, // one input digit
+	output reg [3:0] digit_0, // one output digit
+	output reg carry_out
+);
+	
+	always @ (posedge clk or posedge reset)
+	begin
+		if (reset)
+			digit_0 <= 0;
+		else if (load)
+			digit_0 <= data_0;
+		else if (ent && enc)
+		begin
+			if (up_down) // 1 is up
+			begin
+				digit_0 <= digit_0 < 9 ? digit_0 + 1 : 0;
+				carry_out <= digit_0 < 9 ? 0 : 1;
+			end
+			else // 0 is down
+			begin
+				digit_0 <= digit_0 > 0 ? digit_0 - 1 : 9;
+				carry_out <= digit_0 > 0 ? 0 : 1;
+			end
+		end
+	end
+
+endmodule

@@ -1,0 +1,35 @@
+module count_59
+(
+	input clk, ent, enc, up_down, reset, load, // enc is synchronous carry-out, ent is last digital enc,
+	input [3:0] data_0, data_1, // two digits concanate to obtain 59
+	output reg [3:0] digit_0, digit_1, // divide count into two digits
+	output reg carry_out
+);
+
+	reg[7:0] count; // power(2,8) = 256 is larger than 15*10(data_1) + 15(data_0) = 165 and count limit 59
+	
+	always @ (posedge clk or posedge reset)
+	begin
+		if (reset)
+			count <= 0;
+		else if (load)
+			count <= data_1*10 + data_0;
+		else if (ent && enc)
+		begin
+			if (up_down) // 1 is up
+			begin
+				count <= count < 59 ? count + 1 : 0;
+				carry_out <= count < 59 ? 0 : 1;
+			end
+			else // 0 is down
+			begin
+				count <= count > 0 ? count - 1 : 59;
+				carry_out <= count > 0 ? 0 : 1;
+			end
+		end
+		
+		digit_1 <= count/10;
+		digit_0 <= count%10;
+	end
+
+endmodule
