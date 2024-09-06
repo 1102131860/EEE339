@@ -1,3 +1,5 @@
+# Digital Design with Verilog
+
 This is my EEE339 assignments.
 
 The folder Diagrams include the digrams for Assignment1.
