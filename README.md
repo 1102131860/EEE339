@@ -1,7 +1,8 @@
 # Digital Design with Verilog
+There are two projects in this module. 
 
-This is my EEE339 assignments.
+## First one is a clock and timer with state swifting. 
+The folder 'Diagrams' include the digrams for first one 
 
-The folder Diagrams include the digrams for Assignment1.
-
-For Assignment 2, the result and anaylsis are contained at the PDF file.
+## Second one is a MIPS single cycle design and simualtion. 
+The result and anaylsis are contained at the PDF file.
